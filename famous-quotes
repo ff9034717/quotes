@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تاریخی شخصیات اور اقوالِ زریں - مکمل انسائیکلوپیڈیا</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #0b0f19;
+            color: #f1f5f9;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, #0f172a, #1e1b4b);
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom: 3px solid #6366f1;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        header h1 {
+            font-size: 26px;
+            color: #fbbf24;
+            margin-bottom: 8px;
+        }
+
+        header p {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 25px auto;
+            padding: 0 15px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 22px;
+            color: #38bdf8;
+            margin-bottom: 20px;
+        }
+
+        /* Grid for 20 Personalities */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .personality-card {
+            background-color: #1e293b;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid #334155;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .personality-card:hover {
+            transform: translateY(-5px);
+            border-color: #6366f1;
+        }
+
+        .personality-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .personality-info {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .personality-name {
+            font-size: 18px;
+            color: #fbbf24;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .personality-tag {
+            font-size: 12px;
+            color: #94a3b8;
+        }
+
+        /* Detail Modal View */
+        #detail-view {
+            display: none;
+            background-color: #1e293b;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 2px solid #6366f1;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+        }
+
+        .back-btn {
+            background-color: #ef4444;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .detail-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        @media(min-width: 768px) {
+            .detail-header {
+                flex-direction: row;
+                text-align: right;
+            }
+        }
+
+        .detail-img {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #fbbf24;
+        }
+
+        .detail-bio h2 {
+            color: #fbbf24;
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .detail-bio p {
+            color: #cbd5e1;
+            font-size: 15px;
+        }
+
+        .quotes-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .quote-item {
+            background-color: #0f172a;
+            padding: 15px;
+            border-radius: 10px;
+            border-right: 4px solid #38bdf8;
+            font-size: 15px;
+            color: #f8fafc;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .whatsapp-btn {
+            background-color: #22c55e;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: bold;
+            align-self: flex-start;
+            text-align: center;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            background-color: #020617;
+            color: #64748b;
+            font-size: 14px;
+            margin-top: 40px;
+            border-top: 1px solid #1e293b;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>🏛️ تاریخی شخصیات اور اقوالِ زریں</h1>
+        <p>دنیا کی 20 عظیم شخصیات کے تعارف اور ان کے 100+ سنہری اقوال</p>
+    </header>
+
+    <div class="container">
+        
+        <!-- Detail View Box (Hidden by default) -->
+        <div id="detail-view">
+            <button class="back-btn" onclick="goBack()">← تمام شخصیات کی طرف واپس جائیں</button>
+            <div id="detail-content"></div>
+        </div>
+
+        <!-- Main Grid View -->
+        <div id="main-grid-section">
+            <h2 class="section-title">مشہور شخصیات (کسی بھی نام پر کلک کریں)</h2>
+            <div class="grid" id="personalities-grid">
+                <!-- JavaScript will generate 20 personalities here -->
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>© 2026 اقوالِ زریں پورٹل | تمام حقوق محفوظ ہیں</p>
+    </footer>
+
+    <script>
+        // Data for 20 Personalities with 5 Quotes each
+        const database = [
+            {
+                id: 1,
+                name: "سکندرِ اعظم (Alexander the Great)",
+                tag: "مقدونیہ کا فاتح اور بادشاہ",
+                img: "https://images.unsplash.com/photo-1544805735-98993f45610b?w=600",
+                bio: "سکندرِ اعظم قدیم مقدونیہ کا بادشاہ تھا جو تاریخ کے عظیم ترین عسکری کمانڈروں میں شمار ہوتا ہے۔ اس نے اپنی فہم و فراست سے دنیا کے ایک بڑے حصے کو فتح کیا۔",
+                quotes: [
+                    "مجھے اس بات سے کوئی خوف نہیں کہ بھیڑوں کی فوج کی قیادت ایک شیر کر رہا ہو، لیکن میں اس فوج سے ڈرتا ہوں جس کی قیادت ایک بھیڑ کر رہی ہو اور اس میں شیر ہوں۔",
+                    "میں اپنے استاد کا مقروض ہوں کہ میں زندہ رہا، لیکن اپنے والد کا مقروض ہوں کہ میں نے اچھی زندگی گزاری۔",
+                    "موت سے کیا ڈرنا؟ شجاعت کے ساتھ جینا ہی اصل زندگی ہے۔",
+                    "آسمان پر دو سورج نہیں ہو سکتے، اور زمین پر دو حکمران نہیں۔",
+                    "کچھ بھی ناممکن نہیں ہے اس کے لیے جو عزم کر لے۔"
+                ]
+            },
+            {
+                id: 2,
+                name: "البرٹ آئن سٹائن (Albert Einstein)",
+                tag: "عظیم ماہرِ فزکس اور سائنسدان",
+                img: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=600",
+                bio: "البرٹ آئن سٹائن بیسویں صدی کے سب سے با اثر فزکس کے سائنسدان تھے جنہوں نے نظریہ اضافیت (Theory of Relativity) پیش کیا۔",
+                quotes: [
+                    "زندگی سائیکل چلانے کی طرح ہے۔ اپنا توازن برقرار رکھنے کے لیے آپ کو مسلسل آگے بڑھتے رہنا پڑتا ہے۔",
+                    "تخیل علم سے زیادہ اہم ہے، کیونکہ علم محدود ہے جبکہ تخیل پوری کائنات کو گھیرے ہوئے ہے۔",
+                    "پاگل پن یہ ہے کہ آپ بار بار ایک ہی کام کریں اور الگ نتائج کی امید رکھیں۔",
+                    "جو شخص کبھی غلطی سے نہیں گزرا، اس نے کبھی کسی نئی چیز کی کوشش نہیں کی۔",
+                    "منطق آپ کو اے سے زیڈ تک لے جائے گی، تخیل آپ کو ہر جگہ لے جائے گا۔"
+                ]
+            },
+            {
+                id: 3,
+                name: "سقراط (Socrates)",
+                tag: "یونان کا بانیِ فلسفہ",
+                img: "https://images.unsplash.com/photo-1576086213369-97a306d36557?w=600",
+                bio: "سقراط قدیم یونان کے شہر ایتھنز کا ایک عظیم فلسفی تھا جس نے مغربی فلسفے کی بنیاد رکھی۔",
+                quotes: [
+                    "سب سے زیادہ عقل مند شخص وہ ہے جو یہ جانتا ہے کہ وہ کچھ نہیں جانتا۔",
+                    "غیر آزمودہ زندگی جینے کے لائق نہیں۔",
+                    "صبر ایک کڑوی جڑ ہے، لیکن اس کا پھل بہت میٹھا ہوتا ہے۔",
+                    "حقیقی علم اپنی لاعلمی کو جاننے میں ہے۔",
+                    "دوسروں کی اچھی عادتیں اپناؤ اور اپنی غلطیوں سے سیکھو۔"
+                ]
+            },
+            {
+                id: 4,
+                name: "مولانا جلال الدین رومیؒ (Rumi)",
+                tag: "عظیم صوفی شاعر اور مفکر",
+                img: "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=600",
+                bio: "مولانا روم ۱۳ویں صدی کے فارسی کے عظیم صوفی شاعر اور مفکر تھے جن کا کلام محبت اور امن کا پیغام دیتا ہے۔",
+                quotes: [
+                    "اپنے الفاظ کو بلند کرو، اپنی آواز کو نہیں۔ بارش سے پھول اگتے ہیں، کڑکنے سے نہیں۔",
+                    "جو چیز تمہیں تلاش کر رہی ہے، تم بھی اسی کی تلاش میں ہو۔",
+                    "خاموشی خدا کی زبان ہے، باقی سب برا ترجمہ ہے۔",
+                    "زخم وہ جگہ ہے جہاں سے روشنی آپ کے اندر داخل ہوتی ہے۔",
+                    "کل میں چالاک تھا اس لیے دنیا کو بدلنا چاہتا تھا، آج میں عقل مند ہوں اس لیے خود کو بدل رہا ہوں۔"
+                ]
+            },
+            {
+                id: 5,
+                name: "علامہ محمد اقبالؒ (Allama Iqbal)",
+                tag: "شاعرِ مشرق اور مفکرِ پاکستان",
+                img: "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=600",
+                bio: "علامہ اقبال برصغیر پاک و ہند کے عظیم شاعر، فلسفی اور سیاستدان تھے جنہوں نے امتِ مسلمہ کو بیداری کا درس دیا۔",
+                quotes: [
+                    "خودی کو کر بلند اتنا کہ ہر تقدیر سے پہلے، خدا بندے سے خود پوچھے بتا تیری رضا کیا ہے۔",
+                    "عقَابوں کی صحبت میں اڑنا سیکھ, تـو زاغوں کی صحبت سے مر جائے گا۔",
+                    "محبت مجھے ان جوانوں سے ہے، ستاروں پہ جو ڈالتے ہیں کمند۔",
+                    "عمل سے زندگی بنتی ہے جنت بھی جہنم بھی، یہ خاکی اپنی فطرت میں نہ نوری ہے نہ ناری ہے۔",
+                    "افراد کے ہاتھوں میں ہے اقوام کی تقدیر، ہر فرد ہے ملت کے مقستار کا ستارہ۔"
+                ]
+            },
+            {
+                id: 6,
+                name: "اسٹیو جابز (Steve Jobs)",
+                tag: "ایپل (Apple) کے بانی اور موجد",
+                img: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600",
+                bio: "اسٹیو جابز ایک امریکی کاروباری شخصیت اور ٹیکنالوجی کے سرخیل تھے جنہوں نے ایپل کمپنی کی بنیاد رکھی۔",
+                quotes: [
+                    "آپ کا وقت محدود ہے، اس لیے اسے کسی دوسرے کی زندگی جی کر ضائع نہ کریں۔",
+                    "بھوکے رہو، احمق رہو (Stay Hungry, Stay Foolish)۔",
+                    "مستقبل کی پیش گوئی کرنے کا سب سے بہترین طریقہ یہ ہے کہ اسے خود تخلیق کیا جائے۔",
+                    "آپ کا کام آپ کی زندگی کا ایک بڑا حصہ بنے گا، اور حقیقی اطمینان اسی میں ہے کہ آپ وہ کریں جسے آپ عظیم کام سمجھتے ہیں۔",
+                    "معیار کے ضابطے بنو، کچھ لوگ ایسے ماحول کے عادی نہیں ہوتے جہاں بہترین کی توقع کی جائے۔"
+                ]
+            },
+            {
+                id: 7,
+                name: "افلاطون (Plato)",
+                tag: "قدیم یونان کا عظیم فلسفی",
+                img: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=600",
+                bio: "افلاطون سقراط کا شاگرد اور ارسطو کا استاد تھا، جو مغربی دنیا کے اولین فلسفیوں میں شمار ہوتا ہے۔",
+                quotes: [
+                    "اچھے فیصلے عقل سے آتے ہیں، اور عقل غلطیوں کے تجربے سے آتی ہے۔",
+                    "تعلیم کا مقصد انسان میں نیکی اور خوبصورتی پیدا کرنا ہے۔",
+                    "حوصلہ مند وہ نہیں جو خوف نہیں جانتا، بلکہ وہ ہے جو خوف پر فتح پاتا ہے۔",
+                    "پہلی اور سب سے بڑی فتح انسان کی اپنی ذات پر فتح ہے۔",
+                    "مردوں کے بولنے کی وجہ یہ ہے کہ ان کے پاس کچھ کہنے کو ہوتا ہے، عورتوں کے بولنے کی وجہ یہ ہے کہ وہ کچھ کہنا چاہتی ہیں۔"
+                ]
+            },
+            {
+                id: 8,
+                name: "ارسطو (Aristotle)",
+                tag: "یونانی فلسفی اور سائنسدان",
+                img: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=600",
+                bio: "ارسطو افلاطون کا شاگرد اور تاریخ کے چند سب سے بڑے مفکرین میں سے ایک تھا جس نے ہر علمی شعبے پر کام کیا۔",
+                quotes: [
+                    "ہم وہی بنتے ہیں جو ہم بار بار کرتے ہیں۔ اس لیے عظمت کوئی عمل نہیں بلکہ عادت ہے۔",
+                    "لاعلمی پر قابو پانا ہی علم کا آغاز ہے۔",
+                    "دوستی ایک روح ہے جو دو جسموں میں بستی ہے۔",
+                    "خوشی کا انحصار مکمل طور پر ہمارے اپنے اوپر ہے۔",
+                    "پڑھنا اور سیکھنا دماغ کی بہترین غذا ہے۔"
+                ]
+            },
+            {
+                id: 9,
+                name: "ولیم شیکسپیئر (William Shakespeare)",
+                tag: "انگلینڈ کا عظیم ڈرامہ نگار و شاعر",
+                img: "https://images.unsplash.com/photo-1474366521846-f469856156e5?w=600",
+                bio: "شیکسپیئر کو انگریزی زبان کا سب سے بڑا ڈرامہ نگار اور شاعر مانا جاتا ہے۔",
+                quotes: [
+                    "ہر چمکتی ہوئی چیز سونا نہیں ہوتی۔",
+                    "دکھ میں رونے سے درد کم ہوتا ہے، لیکن زیادہ رونے سے دل کمزور ہو جاتا ہے۔",
+                    "بہادری بزدلی کا دوسرا نام نہیں، بلکہ خطرات کا مقابلہ کرنے کا نام ہے۔",
+                    "دنیا ایک اسٹیج ہے، اور تمام مرد و عورتیں اس کے اداکار ہیں۔",
+                    "شک ہمیشہ شبہ کرنے والوں کے دلوں میں رہتا ہے۔"
+                ]
+            },
+            {
+                id: 10,
+                name: "نیلسن منڈیلا (Nelson Mandela)",
+                tag: "جنوبی افریقہ کے پہلے سیاہ فام صدر",
+                img: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600",
+                bio: "نیلسن منڈیلا نے جنوبی افریقہ میں رنگ برنگی امتیاز کے خلاف طویل جدوجہد کی اور نوبل امن انعام حاصل کیا۔",
+                quotes: [
+                    "تعلیم وہ سب سے طاقتور ہتھیار ہے جسے آپ دنیا کو بدلنے کے لیے استعمال کر سکتے ہیں۔",
+                    "جب تک کوئی کام نہ کیا جائے، وہ ناممکن ہی لگتا ہے۔",
+                    "مجد یہ نہیں کہ ہم کبھی نہ گریں، بلکہ ہر بار گر کر اٹھ کھڑے ہوں۔",
+                    "آزادی صرف زنجیروں سے آزاد ہونا نہیں، بلکہ ایسی زندگی گزارنا ہے جو دوسروں کی آزادی کا احترام کرے۔",
+                    "معاف کرنا دل کو نرم کرتا ہے اور روح کو طاقت دیتا ہے۔"
+                ]
+            },
+            {
+                id: 11,
+                name: "ابرہم لنکن (Abraham Lincoln)",
+                tag: "امریکہ کے سولہویں صدر",
+                img: "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=600",
+                bio: "ابرہم لنکن نے امریکہ سے غلامی کے خاتمے میں اہم ترین کردار ادا کیا۔",
+                quotes: [
+                    "اگر مجھے درخت کاٹنے کے لیے چھ گھنٹے دیے جائیں، تو میں پہلے چار گھنٹے کلہاڑی تیز کرنے میں لگاؤں گا۔",
+                    "میرے پاس جو کچھ بھی ہے یا جو کچھ بننے کی امید ہے، اس کا سہرا میری ماں کے سر ہے۔",
+                    "ان لوگوں پر یقین رکھیں جو آپ پر بھروسہ کرتے ہیں۔",
+                    "ہنسنا غموں کا بہترین علاج ہے۔",
+                    "اصولوں کے معاملے میں چٹان کی طرح مضبوط رہو۔"
+                ]
+            },
+            {
+                id: 12,
+                name: "مہاتما گاندھی (Mahatma Gandhi)",
+                tag: "ہندوستانی تحریکِ آزادی کے رہنما",
+                img: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=600",
+                bio: "مہاتما گاندھی نے عدم تشدد کے اصول پر چل کر برطانوی راج کے خلاف تحریک چلائی۔",
+                quotes: [
+                    "وہ تبدیلی بنیں جو آپ دنیا میں دیکھنا چاہتے ہیں۔",
+                    "کمزور کبھی معاف نہیں کر سکتے، معاف کرنا تو طاقتور کی صفت ہے۔",
+                    "غلطی کرنا قابلِ فخر ہے جب آپ اسے قبول کر کے سدھار لیں۔",
+                    "امن کا کوئی راستہ نہیں، امن ہی خود ایک راستہ ہے۔",
+                    "جب تک آپ خود کوشش نہیں کرتے، امید بیکار ہے۔"
+                ]
+            },
+            {
+                id: 13,
+                name: "نپولین بوناپার্ট (Napoleon Bonaparte)",
+                tag: "فرانس کا شہنشاہ اور جرنیل",
+                img: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=600",
+                bio: "نپولین فرانسیسی تاریخ کا ایک عظیم ترین عسکری کمانڈر اور شہنشاہ گزرا ہے۔",
+                quotes: [
+                    "ناممکن کا لفظ صرف بے وقوفوں کی لغت میں پایا جاتا ہے۔",
+                    "فتح ہمیشہ اس کے ساتھ ہوتی ہے جو سب سے زیادہ پرعزم ہو۔",
+                    "عظیم انسان وہ ہوتا ہے جو اپنے فیصلوں پر پکا رہتا ہے۔",
+                    "ایک اچھی فوج اپنے معدے پر چلتی ہے۔",
+                    "ڈر صرف اس وقت غالب آتا ہے جب آپ ہمت ہار جاتے ہیں۔"
+                ]
+            },
+            {
+                id: 14,
+                name: "چینی زُو (Confucius)",
+                tag: "قدیم چین کا عظیم فلسفی",
+                img: "https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?w=600",
+                bio: "کنفیوشس چین کے ایک مشہور مفکر اور فلسفی تھے جن کی تعلیمات نے مشرقی معاشرے کو گہرا متاثر کیا۔",
+                quotes: [
+                    "وہ کام منتخب کریں جو آپ کو پسند ہو، پھر آپ کو زندگی میں ایک دن بھی کام نہیں کرنا پڑے گا۔",
+                    "جب آپ کو معلوم ہو کہ ہدف تک پہنچنا ناممکن ہے، تو ہدف نہ بدلیں بلکہ اپنا طریقہ بدلیں۔",
+                    "خاموشی ایک ایسا سچا دوست ہے جو کبھی دھوکہ نہیں دیتا۔",
+                    "غلطی کرنے کے بعد اسے نہ سدھارنا ہی اصل غلطی ہے۔",
+                    "نیک انسان ہمیشہ اپنے اخلاق سے پہچانا جاتا ہے۔"
+                ]
+            },
+            {
+                id: 15,
+                name: "سر آئزک نیوٹن (Isaac Newton)",
+                tag: "انگلینڈ کا عظیم ریاضی دان و سائنسدان",
+                img: "https://images.unsplash.com/photo-1509228468518-180dd4864904?w=600",
+                bio: "نیوٹن وہ سائنسدان تھے جنہوں نے کششِ ثقل (Gravity) کے قوانین دریافت کیے۔",
+                quotes: [
+                    "اگر میں نے دوسروں سے آگے دیکھا ہے تو اس کی وجہ یہ ہے کہ میں نے دیو قامت لوگوں کے کندھوں پر کھڑے ہو کر دیکھا۔",
+                    "ہر عمل کا ایک ردعمل ہوتا ہے جو برابر اور مخالف سمت میں ہوتا ہے۔",
+                    "انسانی عقل اتنی وسیع ہے کہ وہ کائنات کے رازوں کو پا سکتی ہے۔",
+                    "طبیعت ہمیشہ سادگی کو پسند کرتی ہے۔",
+                    "شک انسان کو سچائی کی طرف لے جاتا ہے۔"
+                ]
+            },
+            {
+                id: 16,
+                name: "گ্যালিলিও گ্যালিলি (Galileo Galilei)",
+                tag: "اطالوی ماہرِ فلکیات",
+                img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600",
+                bio: "گ্যালিলিو نے دوربین کی مدد سے کائنات کے اسرار کو دنیا کے سامنے عیاں کیا۔",
+                quotes: [
+                    "آپ کسی کو کچھ نہیں سکھا سکتے، آپ صرف اس کے اندر موجود صلاحیتوں کو باہر نکالنے میں مدد کر سکتے ہیں۔",
+                    "حقائق اتنے واضح ہوتے ہیں کہ انہیں جھٹلایا نہیں جا سکتا۔",
+                    "کائنات کی زبان ریاضی ہے۔",
+                    "آسمان کے مطالعے سے روح کو سکون ملتا ہے۔",
+                    "سچائی ہمیشہ چھپی نہیں رہ سکتی، ایک نہ ایک دن سامنے آ جاتی ہے۔"
+                ]
+            },
+            {
+                id: 17,
+                name: "مارک ٹوین (Mark Twain)",
+                tag: "مشہور امریکی ادیب اور ناول نگار",
+                img: "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=600",
+                bio: "مارک ٹوین اپنی ظریفانہ اور دلنشین تحریروں کی وجہ سے پوری دنیا میں مشہور ہیں۔",
+                quotes: [
+                    "آگے بڑھنے کا راز شروعات کرنا ہے۔",
+                    "سچ بولنے کا سب سے بڑا فائدہ یہ ہے کہ آپ کو یاد نہیں رکھنا پڑتا کہ آپ نے کیا کہا تھا۔",
+                    "کتابیں ان لوگوں کے لیے بہترین دوست ہیں جو تنہائی پسند کرتے ہیں۔",
+                    "صحیح لفظ کا استعمال اور اس کی جگہ کا انتخاب ہی اصل ہنر ہے۔",
+                    "انسان کی زندگی میں دو دن سب سے اہم ہیں: ایک جس دن وہ پیدا ہوا، اور دوسرا جس دن اسے وجہ پتہ چلی کہ وہ کیوں پیدا ہوا۔"
+                ]
+            },
+            {
+                id: 18,
+                name: "تھیوڈ روزویلٹ (Theodore Roosevelt)",
+                tag: "امریکہ کے 26ویں صدر",
+                img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600",
+                bio: "روزویلٹ اپنے جاندار فیصلوں اور شاندار قیادت کے لیے مشہور تھے۔",
+                quotes: [
+                    "یقین کریں کہ آپ کر سکتے ہیں، اور آپ نے آدھا راستہ طے کر لیا۔",
+                    "ترقی کرنے کے لیے عمل کرنا سب سے ضروری ہے۔",
+                    "مشکلات انسان کو مضبوط بناتی ہیں۔",
+                    "جو انسان کچھ نہیں کرتا، وہ غلطیاں بھی نہیں کرتا۔",
+                    "ہمت وہ طاقت ہے جو ناممکن کو ممکن کر دیتی ہے۔"
+                ]
+            },
+            {
+                id: 19,
+                name: "بینجمن فرینکلن (Benjamin Franklin)",
+                tag: "امریکی بانی اور سائنسدان",
+                img: "https://images.unsplash.com/photo-1488190211165-85ae6d9f0f9a?w=600",
+                bio: "بینجمن فرینکلن بجلی کے موجد اور امریکہ کے بانیان میں سے ایک ہیں۔",
+                quotes: [
+                    "آج کا کام کل پر مت چھوڑو۔",
+                    "وقت ہی اصل دولت ہے۔",
+                    "جو شخص سب سے زیادہ سیکھتا ہے، وہی سب سے زیادہ کامیاب ہوتا ہے۔",
+                    "غلطیوں سے سیکھنا ہی بہترین تعلیم ہے۔",
+                    "صبر اور محنت سے ہر مشکل آسان ہو جاتی ہے۔"
+                ]
+            },
+            {
+                id: 20,
+                name: "جان ایف کینیڈی (John F. Kennedy)",
+                tag: "امریکہ کے 35ویں صدر",
+                img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600",
+                bio: "کینیڈی اپنے پرجوش خطابات اور جدید وژن کے لیے تاریخ میں یاد رکھے جاتے ہیں۔",
+                quotes: [
+                    "یہ نہ پوچھو کہ آپ کا ملک آپ کے لیے کیا کر سکتا ہے، بلکہ یہ پوچھو کہ آپ اپنے ملک کے لیے کیا کر سکتے ہیں۔",
+                    "بڑے خواب دیکھنے والوں کی کوششیں کبھی رائیگاں نہیں جاتیں۔",
+                    "تبدیلی قانونِ قدرت ہے، اور جو لوگ صرف ماضی کو دیکھتے ہیں وہ مستقبل سے محروم رہ جاتے ہیں۔",
+                    "ہمت خوف کی عدم موجودگی نہیں، بلکہ خوف کے باوجود آگے بڑھنے کا نام ہے۔",
+                    "عزم مضبوط ہو تو ناممکن بھی ممکن ہو جاتا ہے۔"
+                ]
+            }
+        ];
+
+        // Render 20 Personalities on Grid
+        const gridEl = document.getElementById('personalities-grid');
+        
+        database.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'personality-card';
+            card.innerHTML = `
+                <img src="${item.img}" alt="${item.name}" class="personality-img">
+                <div class="personality-info">
+                    <div class="personality-name">${item.name}</div>
+                    <div class="personality-tag">${item.tag}</div>
+                </div>
+            `;
+            card.addEventListener('click', () => showDetail(item.id));
+            gridEl.appendChild(card);
+        });
+
+        // Show Detail View
+        function showDetail(id) {
+            const person = database.find(p => p.id === id);
+            if (!person) return;
+
+            document.getElementById('main-grid-section').style.display = 'none';
+            const detailView = document.getElementById('detail-view');
+            detailView.style.display = 'block';
+
+            let quotesHTML = '';
+            person.quotes.forEach((q, index) => {
+                const whatsappText = encodeURIComponent(`${person.name} کا قول:\n\n"${q}"\n\n(مزید اقوال کے لیے ہماری ویب سائٹ ملاحظہ کریں)`);
+                quotesHTML += `
+                    <div class="quote-item">
+                        <div><strong>قول نمبر ${index + 1}:</strong> "${q}"</div>
+                        <a href="https://wa.me/?text=${whatsappText}" class="whatsapp-btn" target="_blank">واٹس ایپ پر شیئر کریں 🟢</a>
+                    </div>
+                `;
+            });
+
+            document.getElementById('detail-content').innerHTML = `
+                <div class="detail-header">
+                    <img src="${person.img}" alt="${person.name}" class="detail-img">
+                    <div class="detail-bio">
+                        <h2>${person.name}</h2>
+                        <p style="color:#38bdf8; font-size:14px; margin-bottom:8px;">${person.tag}</p>
+                        <p>${person.bio}</p>
+                    </div>
+                </div>
+                <h3 style="color:#fbbf24; margin-bottom:15px; border-bottom:1px solid #334155; padding-bottom:8px;">مخصوص 5 اقوالِ زریں</h3>
+                <div class="quotes-list">
+                    ${quotesHTML}
+                </div>
+            `;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Go Back to Grid View
+        function goBack() {
+            document.getElementById('detail-view').style.display = 'none';
+            document.getElementById('main-grid-section').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
